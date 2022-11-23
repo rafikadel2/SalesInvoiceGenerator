@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import com.opencsv.CSVWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 /**
@@ -34,10 +35,16 @@ public class FileOperations {
                         item[1], Double.parseDouble(item[2]), Integer.parseInt(item[3]));
                 invoiceItemsList.add(invoiceItem);
             }
+            if (!invoiceItemsFilePath.split("[.]")[1].contains("csv")) {
+                throw new Exception("wrong file format");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         return invoiceItemsList;
     }
 
@@ -55,7 +62,14 @@ public class FileOperations {
                 invoiceModel.setInvoice(Integer.parseInt(item[0]), item[1], item[2], invoicesList);
                 invoiceListModel.getInvoiceModelList().add(invoiceModel);
             }
+            if (!invoicesFilePath.split("[.]")[1].contains("csv")) {
+                throw new Exception("wrong file format");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -76,7 +90,6 @@ public class FileOperations {
             }
 
             writer.flush();
-            System.out.println("Data Saved Correctly - Invoice List");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,22 +105,25 @@ public class FileOperations {
                     CSVWriter.NO_QUOTE_CHARACTER,
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.RFC4180_LINE_END);
-            
+
             for (InvoiceModel invoice : invoiceListModel.getInvoiceModelList()) {
-               for (InvoiceItemModel invoiceitem : invoice.getInvoiceItemsList()) {
-                String line[] = {String.valueOf(invoiceitem.getInvoiceNumber()), invoiceitem.getItemName(), String.valueOf(invoiceitem.getItemPrice()), String.valueOf(invoiceitem.getCount())};
-                System.out.println(line.toString());
-                writer.writeNext(line);
+
+                System.out.println(invoice.invoiceNumber);
+                System.out.println("{");
+                System.out.println(invoice.invoiceDate);
+                System.out.println(invoice.customerName);
+
+                for (InvoiceItemModel invoiceitem : invoice.getInvoiceItemsList()) {
+
+                    String line[] = {String.valueOf(invoiceitem.getInvoiceNumber()), invoiceitem.getItemName(), String.valueOf(invoiceitem.getItemPrice()), String.valueOf(invoiceitem.getCount())};
+                    System.out.println(line[1] + " " + line[2] + " " + line[3]);
+                    writer.writeNext(line);
+                }
+                
+                System.out.println("}");
             }
-            }
-            
-            
-       
-            
 
             writer.flush();
-            System.out.println("Data Saved Correctly - Invoice Items");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
