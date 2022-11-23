@@ -52,11 +52,11 @@ public class InvoiceDataControler {
         mainFrame.getInvoiceTotalValue().setText(String.valueOf(loadedInvoice.getInvoiceTotal()));
         mainFrame.getInvoiceNameTF().setText(loadedInvoice.getCustomerName());
         clearTableContent();
-        mainFrame.defaultInvoiceItemTable.setRowCount(loadedInvoice.getInvoiceItemsList().size() + 1);
+        mainFrame.defaultInvoiceItemTable.setRowCount(loadedInvoice.getInvoiceItemsList().size());
         mainFrame.getInvoiceItemsTable().getModel().setValueAt(mainFrame.defaultInvoiceItemTable.getRowCount(), mainFrame.defaultInvoiceItemTable.getRowCount() - 1, 0);
 
         for (int i = 0; i < loadedInvoice.getInvoiceItemsList().size(); i++) {
-
+            
             mainFrame.getInvoiceItemsTable().getModel().setValueAt(i + 1, i, 0);
             mainFrame.getInvoiceItemsTable().getModel().setValueAt(loadedInvoice.getInvoiceItemsList().get(i).getItemName(), i, 1);
             mainFrame.getInvoiceItemsTable().getModel().setValueAt(loadedInvoice.getInvoiceItemsList().get(i).getItemPrice(), i, 2);
@@ -70,8 +70,8 @@ public class InvoiceDataControler {
 
         mainFrame.defaultInvoiceItemTable.setRowCount(0);
         mainFrame.getInvoiceItemsTable().setModel(mainFrame.defaultInvoiceItemTable);
-        mainFrame.defaultInvoiceItemTable.setRowCount(1);
-        mainFrame.getInvoiceItemsTable().getModel().setValueAt(mainFrame.defaultInvoiceItemTable.getRowCount(), mainFrame.defaultInvoiceItemTable.getRowCount() - 1, 0);
+//        mainFrame.defaultInvoiceItemTable.setRowCount(1);
+//        mainFrame.getInvoiceItemsTable().getModel().setValueAt(mainFrame.defaultInvoiceItemTable.getRowCount(), mainFrame.defaultInvoiceItemTable.getRowCount() - 1, 0);
 
     }
 
@@ -85,6 +85,7 @@ public class InvoiceDataControler {
 
         ArrayList<InvoiceItemModel> newInvoiceItems = new ArrayList<>();
         InvoiceModel newInvoiceModel = new InvoiceModel();
+        System.out.println("count "+mainFrame.getInvoiceItemsTable().getRowCount());
         for (int i = 0; i < mainFrame.getInvoiceItemsTable().getRowCount(); i++) {
             String itemName = mainFrame.getInvoiceItemsTable().getModel().getValueAt(i, 1).toString();
             double itemPrice = Double.parseDouble(mainFrame.getInvoiceItemsTable().getModel().getValueAt(i, 2).toString());
@@ -96,14 +97,12 @@ public class InvoiceDataControler {
         newInvoiceModel.setInvoice(Integer.parseInt(mainFrame.getInvoiceNumberValue().getText()), mainFrame.getInvoiceDateTF().getText(), mainFrame.getInvoiceNameTF().getText(), newInvoiceItems);
 
         if (Integer.parseInt(mainFrame.getInvoiceNumberValue().getText()) == getNextInvoiceNumber()) {
-             //update record 
+            //add record 
             invoiceListModel.getInvoiceModelList().add(newInvoiceModel);
             loadInvoiceDetails(Integer.parseInt(mainFrame.getInvoiceNumberValue().getText()));
             mainFrame.defaultInvoicesListTable.setRowCount(invoiceListModel.getInvoiceModelList().size());
         } else {
-              // add new record 
-            invoiceListModel.getInvoiceModelList().add(newInvoiceModel);
-
+            // update record 
             for (int i = 0; i < invoiceListModel.getInvoiceModelList().size(); i++) {
 
                 if (invoiceListModel.getInvoiceModelList().get(i).invoiceNumber == newInvoiceModel.getInvoiceNumber()) {
@@ -143,7 +142,7 @@ public class InvoiceDataControler {
     }
 
     public void expoetToCSV() {
-        
+
         fileOperations.writeCSV(invoiceListModel);
         fileOperations.writeCSVForItems(invoiceListModel);
 

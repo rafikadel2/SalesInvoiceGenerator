@@ -404,9 +404,20 @@ public class MainFrame extends JFrame {
 
     private void AddItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddItemBtnActionPerformed
 
-        int lastValue = Integer.parseInt(invoiceItemsTable.getValueAt(defaultInvoiceItemTable.getRowCount() - 1, 0).toString());
+        int rowCount = defaultInvoiceItemTable.getRowCount();
+        if (rowCount<1) {
+            defaultInvoiceItemTable.setRowCount(1);
+            invoiceItemsTable.getModel().setValueAt(1, 0, 0);
+            
+            
+        }else{
+            
+            int lastValue = Integer.parseInt(invoiceItemsTable.getValueAt( rowCount- 1, 0).toString());
         defaultInvoiceItemTable.setRowCount(defaultInvoiceItemTable.getRowCount() + 1);
         invoiceItemsTable.getModel().setValueAt(lastValue + 1, defaultInvoiceItemTable.getRowCount() - 1, 0);
+        }
+        
+        
 
 
     }//GEN-LAST:event_AddItemBtnActionPerformed
