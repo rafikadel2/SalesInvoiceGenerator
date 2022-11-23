@@ -4,8 +4,7 @@
  */
 package com.fwd.salesinvoicegenerator.models;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,19 +12,81 @@ import java.util.List;
  */
 public class InvoiceModel {
     
-    private int invoiceNumber;
-    private String invoiceDate;
-    private String customerName;
-    private double invoiceTotal;
-    private List<InvoiceItemModel> invoiceItemsList ;
+    public int invoiceNumber;
+    public String invoiceDate;
+    public String customerName;
+    public double invoiceTotal;
+    public ArrayList<InvoiceItemModel> invoiceItemsList ;
+
+  
     
     
+    public InvoiceModel()
+    {
+        invoiceItemsList= new ArrayList<>();
+    }
     
+    public void setInvoice(int invoiceNumber, String invoiceDate,String customerName,ArrayList<InvoiceItemModel> invoiceItemsList)
+    {
+        this.invoiceNumber = invoiceNumber;
+        this.invoiceDate = invoiceDate;
+        this.customerName = customerName;
+        setInvoiceItemsList(invoiceItemsList);
+        calculateInvoiceTotal();
+    }
     
-    
-    
+    public void calculateInvoiceTotal ()
+    {
+        this.invoiceTotal = 0;
+        for(InvoiceItemModel item : invoiceItemsList)
+        {
+            invoiceTotal+=item.getItemtotal();
+                
+        }
+        
          
-//    invoiceItemsList = new LinkedList<>();
+        
+    }
+    
+    public int getInvoiceNumber() {
+        return invoiceNumber;
+    }    
+
+    public String getInvoiceDate() {
+        return invoiceDate;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public double getInvoiceTotal() {
+        return invoiceTotal;
+    }
+    
+    public void setInvoiceItemsList(ArrayList<InvoiceItemModel> invoiceItemsList) {
+        for(InvoiceItemModel item :invoiceItemsList){
+            if(item.getInvoiceNumber()==this.invoiceNumber)
+            {
+                this.invoiceItemsList.add(item);
+            }
+            
+        }
+        
+        
+    }
+
+    public ArrayList<InvoiceItemModel> getInvoiceItemsList() {
+        return invoiceItemsList;
+    }
+
+    public void updateInvoice(InvoiceModel newInvoiceModel) {
+        
+        this.customerName=newInvoiceModel.getCustomerName();
+        this.invoiceDate=newInvoiceModel.getInvoiceDate();
+        this.invoiceTotal=newInvoiceModel.getInvoiceTotal();
+        this.invoiceItemsList = newInvoiceModel.getInvoiceItemsList();
+    }
     
     
 }

@@ -1,2 +1,6 @@
+/Users/rafikadel/NetBeansProjects/SalesInvoiceGenerator/src/main/java/com/fwd/salesinvoicegenerator/models/InvoiceModel.java
 /Users/rafikadel/NetBeansProjects/SalesInvoiceGenerator/src/main/java/com/fwd/salesinvoicegenerator/view/MainFrame.java
-/Users/rafikadel/NetBeansProjects/SalesInvoiceGenerator/src/main/java/com/fwd/salesinvoicegenerator/SalesInvoiceGenerator.java
+/Users/rafikadel/NetBeansProjects/SalesInvoiceGenerator/src/main/java/com/fwd/salesinvoicegenerator/models/FileOperations.java
+/Users/rafikadel/NetBeansProjects/SalesInvoiceGenerator/src/main/java/com/fwd/salesinvoicegenerator/models/InvoiceItemModel.java
+/Users/rafikadel/NetBeansProjects/SalesInvoiceGenerator/src/main/java/com/fwd/salesinvoicegenerator/controlers/InvoiceDataControler.java
+/Users/rafikadel/NetBeansProjects/SalesInvoiceGenerator/src/main/java/com/fwd/salesinvoicegenerator/models/InvoiceListModel.java

@@ -4,7 +4,7 @@
  */
 package com.fwd.salesinvoicegenerator.models;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -12,8 +12,28 @@ import java.util.List;
  */
 public class InvoiceListModel {
     
-    private List<InvoiceModel> invoiceModelList;
+    private ArrayList<InvoiceModel> invoiceModelList;
+
+    public ArrayList<InvoiceModel> getInvoiceModelList() {
+        return invoiceModelList;
+    }
     
+    public InvoiceListModel()
+    {
+        invoiceModelList= new ArrayList<>();
+    }
+    
+    
+    public InvoiceModel getInvoiceWithNumber(int invoiceNumber)
+    {
+        for(InvoiceModel invoice : invoiceModelList)
+        {
+          if(invoice.getInvoiceNumber()==invoiceNumber)
+              return invoice;
+        
+        }
+        return null;
+    }
     
     
 }

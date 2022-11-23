@@ -16,16 +16,35 @@ public class InvoiceItemModel {
   private int count;
   private double itemtotal;
 
-    public InvoiceItemModel(int invoiceNumber, String itemName, int itemPrice, int count, int itemtotal) {
+    public InvoiceItemModel(int invoiceNumber, String itemName, double itemPrice, int count) {
         this.invoiceNumber = invoiceNumber;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.count = count;
-        this.itemtotal = itemtotal;
+        this.itemtotal = itemPrice*count;
     }
-  
-  
-  
-  
-  
+
+    public double getItemtotal() {
+        return itemtotal;
+    } 
+    
+    public int getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public double getItemPrice() {
+        return itemPrice;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+    
+    
+    
+    
 }
