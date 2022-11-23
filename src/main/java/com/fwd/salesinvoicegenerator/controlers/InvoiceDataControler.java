@@ -143,8 +143,9 @@ public class InvoiceDataControler {
     }
 
     public void expoetToCSV() {
-        fileOperations.writeCSV(invoiceItemsList);
+        
         fileOperations.writeCSV(invoiceListModel);
+        fileOperations.writeCSVForItems(invoiceListModel);
 
     }
 
