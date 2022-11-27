@@ -5,7 +5,7 @@
 package com.fwd.salesinvoicegenerator.view;
 
 import com.fwd.salesinvoicegenerator.controlers.InvoiceDataControler;
-import com.fwd.salesinvoicegenerator.models.InvoiceModel;
+
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -549,7 +549,7 @@ public class MainFrame extends JFrame {
     }
 
     private void clearInvoiceDetails() {
-        invoiceDataHandler.clearTableContent();
+        invoiceDataHandler.clearInvoiceItemsTableContent();
         invoiceNumberValue.setText(String.valueOf(invoiceDataHandler.getNextInvoiceNumber()));
         invoiceDateTF.setText("");
         invoiceNameTF.setText("");
