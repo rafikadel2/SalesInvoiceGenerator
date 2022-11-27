@@ -29,9 +29,6 @@ public class InvoiceDataControler {
     public void loadData() {
         invoiceItemsList = fileOperations.readInvoiceItemData();
         invoiceListModel = fileOperations.readInvoicesData(invoiceItemsList);
-        System.out.println("last item count");
-        System.out.println(invoiceItemsList.get(invoiceItemsList.size() - 1).getInvoiceNumber());
-        System.out.println(invoiceListModel.getInvoiceModelList().get(invoiceListModel.getInvoiceModelList().size() - 1).getInvoiceNumber());
         populateInvoicesListTable();
 
     }
@@ -74,12 +71,14 @@ public class InvoiceDataControler {
         mainFrame.defaultInvoicesListTable.setRowCount(0);
         mainFrame.getInvoicesListTable().setModel(mainFrame.defaultInvoicesListTable);
     }
+
     public void incrementInvoicesTableRowsCount() {
         int currentCount = mainFrame.defaultInvoicesListTable.getRowCount();
         mainFrame.defaultInvoicesListTable.setRowCount(++currentCount);
         mainFrame.getInvoicesListTable().setModel(mainFrame.defaultInvoicesListTable);
 
     }
+
     public void clearInvoiceItemsTableContent() {
 
         mainFrame.defaultInvoiceItemTable.setRowCount(0);
@@ -97,20 +96,12 @@ public class InvoiceDataControler {
 
     public void saveInvoice() {
 
-        ArrayList<InvoiceItemModel> newInvoiceItems = new ArrayList<>();
-        InvoiceModel newInvoiceModel = new InvoiceModel();
-        System.out.println("count " + mainFrame.getInvoiceItemsTable().getRowCount());
-        for (int i = 0; i < mainFrame.getInvoiceItemsTable().getRowCount(); i++) {
-            String itemName = mainFrame.getInvoiceItemsTable().getModel().getValueAt(i, 1).toString();
-            double itemPrice = Double.parseDouble(mainFrame.getInvoiceItemsTable().getModel().getValueAt(i, 2).toString());
-            int itemCount = Integer.parseInt(mainFrame.getInvoiceItemsTable().getModel().getValueAt(i, 3).toString());
-            InvoiceItemModel item = new InvoiceItemModel(Integer.parseInt(mainFrame.getInvoiceNumberValue().getText()), itemName, itemPrice, itemCount);
-            newInvoiceItems.add(item);
-        }
 
+        ArrayList<InvoiceItemModel> newInvoiceItems = getEnteredModel();
+        InvoiceModel newInvoiceModel = new InvoiceModel();
         newInvoiceModel.setInvoice(Integer.parseInt(mainFrame.getInvoiceNumberValue().getText()), mainFrame.getInvoiceDateTF().getText(), mainFrame.getInvoiceNameTF().getText(), newInvoiceItems);
 
-        if (Integer.parseInt(mainFrame.getInvoiceNumberValue().getText()) == getNextInvoiceNumber()) {
+        if (Integer.parseInt(mainFrame.getInvoiceNumberValue().getText()) >= getNextInvoiceNumber()) {
             //add record 
             invoiceListModel.getInvoiceModelList().add(newInvoiceModel);
             loadInvoiceDetails(Integer.parseInt(mainFrame.getInvoiceNumberValue().getText()));
@@ -124,9 +115,25 @@ public class InvoiceDataControler {
                 }
             }
         }
+
+
         populateInvoicesListTable();
 
     }
+
+    private ArrayList<InvoiceItemModel> getEnteredModel() {
+        ArrayList<InvoiceItemModel> newInvoiceItems = new ArrayList<>();
+        for (int i = 0; i < mainFrame.getInvoiceItemsTable().getRowCount(); i++) {
+            String itemName = mainFrame.getInvoiceItemsTable().getModel().getValueAt(i, 1).toString();
+            double itemPrice = Double.parseDouble(mainFrame.getInvoiceItemsTable().getModel().getValueAt(i, 2).toString());
+            int itemCount = Integer.parseInt(mainFrame.getInvoiceItemsTable().getModel().getValueAt(i, 3).toString());
+            InvoiceItemModel item = new InvoiceItemModel(Integer.parseInt(mainFrame.getInvoiceNumberValue().getText()), itemName, itemPrice, itemCount);
+            newInvoiceItems.add(item);
+        }
+        return newInvoiceItems;
+
+    }
+
 
     public void removeInvoiceWithNumber(int invoiceNumber) {
         InvoiceListModel tempInvoices = invoiceListModel;

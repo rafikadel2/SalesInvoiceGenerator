@@ -34,13 +34,7 @@ public class MainFrame extends JFrame {
          invoiceItemsTable.getModel().addTableModelListener(new TableModelListener() {
 
       public void tableChanged(TableModelEvent e) {
-          System.out.println("Actions");
-//         System.out.println(invoiceItemsTable.getModel().getValueAt(0, 1));
-//         System.out.println(invoiceItemsTable.getModel().getValueAt(0, 2));
-//         System.out.println(invoiceItemsTable.getModel().getValueAt(0, 3));
 
-         
-         
       }
     });
 
