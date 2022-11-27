@@ -76,11 +76,8 @@ public class InvoiceDataControler {
     }
     public void incrementInvoicesTableRowsCount() {
         int currentCount = mainFrame.defaultInvoicesListTable.getRowCount();
-        System.out.println("Before count "+ currentCount);
         mainFrame.defaultInvoicesListTable.setRowCount(++currentCount);
-        System.out.println("my default count is " );mainFrame.defaultInvoicesListTable.getRowCount();
         mainFrame.getInvoicesListTable().setModel(mainFrame.defaultInvoicesListTable);
-        System.out.println("after count "+ mainFrame.getInvoicesListTable().getRowCount());
 
     }
     public void clearInvoiceItemsTableContent() {
