@@ -7,8 +7,6 @@ package com.fwd.salesinvoicegenerator.view;
 import com.fwd.salesinvoicegenerator.controlers.InvoiceDataControler;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,14 +27,6 @@ public class MainFrame extends JFrame {
         invoiceDataHandler.loadData();
         clearInvoiceDetails();
         selectedInvoiceNumber = "";
-        
-        
-         invoiceItemsTable.getModel().addTableModelListener(new TableModelListener() {
-
-      public void tableChanged(TableModelEvent e) {
-
-      }
-    });
 
     }
 
@@ -73,7 +63,7 @@ public class MainFrame extends JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         loadMenuItem = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
+        SaveMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -233,7 +223,7 @@ public class MainFrame extends JFrame {
 
         fileMenu.setText("File");
 
-        loadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, 0));
+        loadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         loadMenuItem.setText("Load");
         loadMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,14 +232,14 @@ public class MainFrame extends JFrame {
         });
         fileMenu.add(loadMenuItem);
 
-        saveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, 0));
-        saveMenuItem.setText("Save");
-        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        SaveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        SaveMenuItem.setText("Save");
+        SaveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveMenuItemActionPerformed(evt);
+                SaveMenuItemActionPerformed(evt);
             }
         });
-        fileMenu.add(saveMenuItem);
+        fileMenu.add(SaveMenuItem);
 
         jMenuBar1.add(fileMenu);
 
@@ -345,10 +335,6 @@ public class MainFrame extends JFrame {
         invoiceDataHandler.loadData();
     }//GEN-LAST:event_loadMenuItemActionPerformed
 
-    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
-        invoiceDataHandler.expoetToCSV();
-    }//GEN-LAST:event_saveMenuItemActionPerformed
-
     private void deleteInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteInvoiceActionPerformed
         if (!selectedInvoiceNumber.equals("")) {
             clearInvoiceDetails();
@@ -428,6 +414,10 @@ public class MainFrame extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_invoiceItemsTablePropertyChange
 
+    private void SaveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveMenuItemActionPerformed
+        invoiceDataHandler.expoetToCSV();
+    }//GEN-LAST:event_SaveMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -468,6 +458,7 @@ public class MainFrame extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddItemBtn;
+    private javax.swing.JMenuItem SaveMenuItem;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JButton createNewInvoice;
     private javax.swing.JButton deleteInvoice;
@@ -491,7 +482,6 @@ public class MainFrame extends JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem loadMenuItem;
     private javax.swing.JButton saveBtn;
-    private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
 
     public void setInvoicesListTable(JTable invoicesListTable) {
