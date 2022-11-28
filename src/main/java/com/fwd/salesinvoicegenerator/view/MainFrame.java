@@ -60,6 +60,7 @@ public class MainFrame extends JFrame {
         saveBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
         AddItemBtn = new javax.swing.JButton();
+        removeItemBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         loadMenuItem = new javax.swing.JMenuItem();
@@ -221,6 +222,13 @@ public class MainFrame extends JFrame {
             }
         });
 
+        removeItemBtn.setText("Remove Item");
+        removeItemBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeItemBtnActionPerformed(evt);
+            }
+        });
+
         fileMenu.setText("File");
 
         loadMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -270,7 +278,10 @@ public class MainFrame extends JFrame {
                             .addComponent(invoiceItemsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AddItemBtn)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(AddItemBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(removeItemBtn))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(invoiceNameTF)
                                 .addComponent(invoiceDateTF, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
@@ -308,7 +319,8 @@ public class MainFrame extends JFrame {
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(invoiceItemsLabel)
-                            .addComponent(AddItemBtn))
+                            .addComponent(AddItemBtn)
+                            .addComponent(removeItemBtn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(invoiceItemsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, Short.MAX_VALUE))
@@ -332,7 +344,8 @@ public class MainFrame extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuItemActionPerformed
-        invoiceDataHandler.loadData();
+      SettingFilesDialoge settingFilesDialoge =   new SettingFilesDialoge(this, true,invoiceDataHandler);
+      settingFilesDialoge.setVisible(true);
     }//GEN-LAST:event_loadMenuItemActionPerformed
 
     private void deleteInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteInvoiceActionPerformed
@@ -418,6 +431,11 @@ public class MainFrame extends JFrame {
         invoiceDataHandler.expoetToCSV();
     }//GEN-LAST:event_SaveMenuItemActionPerformed
 
+    private void removeItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeItemBtnActionPerformed
+        int rowCount = defaultInvoiceItemTable.getRowCount();
+        defaultInvoiceItemTable.setRowCount(rowCount-1);
+    }//GEN-LAST:event_removeItemBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -481,6 +499,7 @@ public class MainFrame extends JFrame {
     private javax.swing.JLabel invoicesTableLable;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem loadMenuItem;
+    private javax.swing.JButton removeItemBtn;
     private javax.swing.JButton saveBtn;
     // End of variables declaration//GEN-END:variables
 

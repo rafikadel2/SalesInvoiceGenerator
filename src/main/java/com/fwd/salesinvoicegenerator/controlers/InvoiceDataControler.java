@@ -27,11 +27,39 @@ public class InvoiceDataControler {
     }
 
     public void loadData() {
+        
+       String invoicesFilePath="src/main/java/resources/invoices.csv";
+        String invoiceItemsFilePath="src/main/java/resources/invoicesItems.csv";
+        loadData(invoicesFilePath,invoiceItemsFilePath);
+
+    }
+    public void loadData(String headersFile,String itemsFile) {
+        fileOperations.setInvoiceItemsFilePath(itemsFile);
+        fileOperations.setInvoicesFilePath(headersFile);
         invoiceItemsList = fileOperations.readInvoiceItemData();
         invoiceListModel = fileOperations.readInvoicesData(invoiceItemsList);
         populateInvoicesListTable();
-
+        printLoadedData();
     }
+    
+   private void printLoadedData()
+   {
+   
+       for(InvoiceModel invoice : invoiceListModel.getInvoiceModelList())
+       {
+           System.out.println("Invoice Number: "+ invoice.getInvoiceNumber());
+           System.out.println("{");
+           System.out.println(invoice.getInvoiceDate()+" "+invoice.getCustomerName());
+           for(InvoiceItemModel item : invoice.getInvoiceItemsList())
+           {
+               System.out.println(item.getItemName()+", "+item.getItemPrice()+", "+item.getCount());
+           }
+           System.out.println("}");
+           
+           
+       }
+   
+   }
 
     private void populateInvoicesListTable() {
         clearInvoicesTableContent();

@@ -18,8 +18,8 @@ import java.io.FileWriter;
  */
 public class FileOperations {
 
-    private final String invoicesFilePath = "src/main/java/resources/invoices.csv";
-    private final String invoiceItemsFilePath = "src/main/java/resources/invoicesItems.csv";
+    private String invoicesFilePath = "src/main/java/resources/invoices.csv";   
+    private String invoiceItemsFilePath = "src/main/java/resources/invoicesItems.csv";
 
     public ArrayList<InvoiceItemModel> readInvoiceItemData() {
 
@@ -107,20 +107,10 @@ public class FileOperations {
                     CSVWriter.RFC4180_LINE_END);
 
             for (InvoiceModel invoice : invoiceListModel.getInvoiceModelList()) {
-
-                System.out.println(invoice.invoiceNumber);
-                System.out.println("{");
-                System.out.println(invoice.invoiceDate);
-                System.out.println(invoice.customerName);
-
                 for (InvoiceItemModel invoiceitem : invoice.getInvoiceItemsList()) {
-
-                    String line[] = {String.valueOf(invoiceitem.getInvoiceNumber()), invoiceitem.getItemName(), String.valueOf(invoiceitem.getItemPrice()), String.valueOf(invoiceitem.getCount())};
-                    System.out.println(line[1] + " " + line[2] + " " + line[3]);
+                    String line[] = {String.valueOf(invoiceitem.getInvoiceNumber()), invoiceitem.getItemName(), String.valueOf(invoiceitem.getItemPrice()), String.valueOf(invoiceitem.getCount())};   
                     writer.writeNext(line);
                 }
-                
-                System.out.println("}");
             }
 
             writer.flush();
@@ -129,4 +119,15 @@ public class FileOperations {
         }
 
     }
+    
+    public void setInvoicesFilePath(String invoicesFilePath) {
+        this.invoicesFilePath = invoicesFilePath;
+    }
+
+    public void setInvoiceItemsFilePath(String invoiceItemsFilePath) {
+        this.invoiceItemsFilePath = invoiceItemsFilePath;
+    }
+    
+    
+    
 }
