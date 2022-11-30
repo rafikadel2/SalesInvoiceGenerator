@@ -24,8 +24,8 @@ public class MainFrame extends JFrame {
         invoiceDataHandler = new InvoiceDataControler(this);
         defaultInvoiceItemTable = (DefaultTableModel) invoiceItemsTable.getModel();
         defaultInvoicesListTable = (DefaultTableModel) invoicesListTable.getModel();
-        invoiceDataHandler.loadData();
-        clearInvoiceDetails();
+        //invoiceDataHandler.loadData();
+//        clearInvoiceDetails();
         selectedInvoiceNumber = "";
 
     }
